@@ -17,20 +17,18 @@ def connect_db():
 
     return db
 
-def insert_one():
-
-    db = connect_db()
+def write_data(db):
 
     doc_ref = db.collection('firebase-test').document('firebase-test')
-    doc_ref.set({
-        'first': 'Ada',
-        'last': 'Lovelace',
-        'born': 1815
-    })
+    doc_ref.set(
+    {
+        'first' : 'Ada',
+        'last'  : 'Lovelace',
+        'born'  : 1812
+    }
+    )
 
-def read_data():
-
-    db = connect_db()
+def read_data(db):
 
     users_ref = db.collection(u'firebase-test')
     docs = users_ref.stream()
@@ -39,9 +37,18 @@ def read_data():
         print(doc) # returns object
         print(doc.to_dict())
 
+def delete_data(db):
+
+
+    db.collection('firebase-test').document('firebase-test').delete()
+
 def start():
 
-    read_data()
+    db = connect_db()
+
+    # write_data(db)
+    read_data(db)
+    # delete_data(db)
 
 
 if __name__=='__main__':
